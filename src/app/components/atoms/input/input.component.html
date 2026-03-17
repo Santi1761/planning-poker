@@ -1,0 +1,12 @@
+<div class="input-container">
+  <label *ngIf="label" [for]="id" class="input-label">{{ label }}</label>
+
+  <input
+    [id]="id"
+    type="text"
+    [placeholder]="placeholder"
+    [formControl]="control"
+    class="input-field"
+    [ngClass]="{'is-invalid': control.invalid && (control.dirty || control.touched)}"
+  />
+</div>

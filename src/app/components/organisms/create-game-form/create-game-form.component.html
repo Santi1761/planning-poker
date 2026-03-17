@@ -1,0 +1,13 @@
+<form [formGroup]="gameForm" (ngSubmit)="onSubmit()" class="organism-form">
+  <app-form-field
+    id="game-name-input"
+    label="Nombra la partida"
+    [control]="gameNameControl">
+  </app-form-field>
+
+  <app-button
+    [type]="'submit'"
+    [text]="isLoading ? 'Creando...' : 'Crear partida'"
+    [disabled]="gameForm.invalid || isLoading">
+  </app-button>
+</form>

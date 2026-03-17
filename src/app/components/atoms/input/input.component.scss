@@ -1,0 +1,29 @@
+.input-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 24px;
+
+  .input-label {
+    font-size: 14px;
+    color: #ffffff;
+    margin-bottom: 8px;
+    font-weight: 700;
+    align-self: flex-start;
+  }
+
+  .input-field {
+    background-color: transparent;
+    border: 1px solid #BB65FF;
+    border-radius: 50px;
+    padding: 12px 20px;
+    color: white;
+    font-size: 14px;
+    outline: none;
+    font-family: inherit;
+
+    &.is-invalid {
+      border-color: #ff7675;
+    }
+  }
+}

@@ -4,12 +4,10 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "./out-tsc/spec",
-    "types": [
-      "vitest/globals"
-    ]
+    "types": ["jest", "node"]
   },
   "include": [
     "src/**/*.d.ts",
     "src/**/*.spec.ts"
-  ]
+, "src/app/components/organisms/create-game-form/create-game-form.component.spec.ts.ts", "src/app/services/game.service.ts"  ]
 }

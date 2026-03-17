@@ -1,0 +1,25 @@
+.form-field-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 24px;
+}
+
+.error-text {
+  color: #ff7675;
+  font-size: 12px;
+  margin-top: 4px;
+  margin-left: 4px;
+  animation: fadeInDown 0.3s ease-in-out;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

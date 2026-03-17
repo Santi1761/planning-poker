@@ -1,0 +1,12 @@
+<div class="form-field-wrapper">
+  <app-input
+    [label]="label"
+    [id]="id"
+    [placeholder]="placeholder"
+    [control]="control">
+  </app-input>
+
+  <span class="error-text" *ngIf="control.invalid && (control.dirty || control.touched)">
+    {{ errorMessage }}
+  </span>
+</div>
