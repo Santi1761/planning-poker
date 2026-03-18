@@ -26,16 +26,25 @@ describe('CreateUserFormComponent', () => {
 
   it('debería emitir el evento al enviar un formulario válido', () => {
     jest.spyOn(component.formSubmit, 'emit');
-
     component.userNameControl.setValue('Pragma123');
     component.viewModeControl.setValue('espectador');
 
     component.onSubmit();
 
     expect(component.formSubmit.emit).toHaveBeenCalledWith({
-      userName: 'Pragma123',
+      name: 'Pragma123',
       viewMode: 'espectador'
     });
     expect(component.isLoading).toBeTruthy();
+  });
+
+  it('debería marcar el formulario como tocado si es inválido al enviar', () => {
+    jest.spyOn(component.userForm, 'markAllAsTouched');
+    component.userNameControl.setValue(''); // Vacío = Inválido
+
+    component.onSubmit();
+
+    expect(component.userForm.markAllAsTouched).toHaveBeenCalled();
+    expect(component.isLoading).toBeFalsy();
   });
 });

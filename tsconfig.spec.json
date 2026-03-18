@@ -9,5 +9,5 @@
   "include": [
     "src/**/*.d.ts",
     "src/**/*.spec.ts"
-, "src/app/components/organisms/create-game-form/create-game-form.component.spec.ts.ts", "src/app/services/game.service.ts"  ]
+, "src/app/components/organisms/create-game-form/create-game-form.component.spec.ts", "src/app/services/game.service.ts"  ]
 }

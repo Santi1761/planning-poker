@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Title, Meta } from '@angular/platform-browser';
 import { CreateUserFormComponent } from '../../components/organisms/create-user-form/create-user-form.component';
 import { UserService } from '../../services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-user',
@@ -16,7 +17,8 @@ export class CreateUserComponent implements OnInit {
   constructor(
     private readonly titleService: Title,
     private readonly metaService: Meta,
-    private readonly userService: UserService
+    private readonly userService: UserService,
+    private readonly router: Router
   ) {}
 
   ngOnInit(): void {
@@ -28,6 +30,7 @@ export class CreateUserComponent implements OnInit {
     this.userService.createUser(userData).subscribe({
       next: (response) => {
         alert(`Usuario ${response.name} creado con éxito!\nRol: ${response.role}\nModo: ${response.viewMode}`);
+        this.router.navigate(['/board']);
       },
       error: (err) => console.error(err)
     });

@@ -1,0 +1,14 @@
+<div class="slot-container">
+
+  <app-player-card
+    *ngIf="player.type === 'jugador'"
+    [hasVoted]="player.hasVoted">
+  </app-player-card>
+
+  <app-spectator-badge
+    *ngIf="player.type === 'espectador'"
+    [initials]="player.initials">
+  </app-spectator-badge>
+
+  <span class="player-name">{{ player.name }}</span>
+</div>

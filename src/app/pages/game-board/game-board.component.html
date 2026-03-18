@@ -1,0 +1,20 @@
+<div class="board-container">
+  <header class="board-header">
+    <div class="header-left">
+      <img src="logo-poker.png" alt="Logo" class="logo">
+    </div>
+
+    <div class="header-center">
+      <h1 class="sprint-title">{{ gameName }}</h1>
+    </div>
+
+    <div class="header-right">
+      <div class="user-badge">{{ userInitials }}</div>
+      <button class="invite-btn">Invitar jugadores</button>
+    </div>
+  </header>
+
+  <main class="board-main">
+    <app-poker-table [players]="mockPlayers"></app-poker-table>
+  </main>
+</div>

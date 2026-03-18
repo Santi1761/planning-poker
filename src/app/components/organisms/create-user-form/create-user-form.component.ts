@@ -42,7 +42,10 @@ export class CreateUserFormComponent {
   onSubmit() {
     if (this.userForm.valid) {
       this.isLoading = true;
-      this.formSubmit.emit(this.userForm.value);
+      this.formSubmit.emit({
+        name: this.userForm.value.userName,
+        viewMode: this.userForm.value.viewMode
+      });
     } else {
       this.userForm.markAllAsTouched();
     }

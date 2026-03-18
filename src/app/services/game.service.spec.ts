@@ -1,24 +1,26 @@
 import { TestBed } from '@angular/core/testing';
 import { GameService } from './game.service';
+import { StoragePort } from '../core/ports/storage.port';
 
 describe('GameService', () => {
   let service: GameService;
+  let storageMock: any;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    storageMock = { saveGameName: jest.fn() };
+
+    TestBed.configureTestingModule({
+      providers: [
+        { provide: StoragePort, useValue: storageMock }
+      ]
+    });
     service = TestBed.inject(GameService);
   });
 
-  it('debería ser creado', () => {
-    expect(service).toBeTruthy();
-  });
-
-  it('debería retornar un observable con el nombre de la partida y un ID mockeado', (done) => {
-    const testName = 'Sprint 32';
-
-    service.createGame(testName).subscribe(response => {
-      expect(response.name).toBe(testName);
-      expect(response.id).toBe('9QdP98VGUrZQLNCqYAF7');
+  it('debería simular la creación de la partida', (done) => {
+    service.createGame('Pragma Game').subscribe(response => {
+      expect(response.name).toBe('Pragma Game');
+      expect(storageMock.saveGameName).toHaveBeenCalledWith('Pragma Game');
       done();
     });
   });

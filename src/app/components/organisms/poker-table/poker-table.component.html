@@ -1,0 +1,17 @@
+<div class="table-container">
+
+  <div class="poker-table-outer">
+    <div class="poker-table-middle">
+      <div class="poker-table-inner"></div>
+    </div>
+  </div>
+
+  <div class="players-layer">
+    <app-player-slot
+      *ngFor="let p of players; let i = index"
+      [player]="p"
+      class="player-wrapper player-pos-{{ i }}">
+    </app-player-slot>
+  </div>
+
+</div>

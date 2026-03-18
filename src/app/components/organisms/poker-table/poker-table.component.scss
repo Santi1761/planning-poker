@@ -1,0 +1,64 @@
+.table-container {
+  position: relative;
+  width: 850px;
+  height: 500px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.poker-table-outer {
+  width: 680px;
+  height: 280px;
+  border-radius: 999px;
+  border: 1px solid rgba(155, 81, 224, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+}
+
+.poker-table-middle {
+  width: 92%;
+  height: 80%;
+  border-radius: 999px;
+  border: 2px solid rgba(155, 81, 224, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.poker-table-inner {
+  width: 88%;
+  height: 70%;
+  border-radius: 999px;
+  border: 3px solid #9b51e0;
+  box-shadow: inset 0 0 20px rgba(155, 81, 224, 0.2);
+}
+
+.players-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.player-wrapper {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  pointer-events: auto;
+}
+
+.player-pos-0 { top: 10%; left: 30%; }
+.player-pos-1 { top: 5%;  left: 50%; }
+.player-pos-2 { top: 10%; left: 70%; }
+
+.player-pos-3 { top: 90%; left: 30%; }
+.player-pos-4 { top: 95%; left: 50%; }
+.player-pos-5 { top: 90%; left: 70%; }
+
+.player-pos-6 { top: 50%; left: 8%; }
+.player-pos-7 { top: 50%; left: 92%; }
