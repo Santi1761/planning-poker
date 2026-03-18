@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Title, Meta } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 import { CreateGameFormComponent } from '../../components/organisms/create-game-form/create-game-form.component';
 import { GameService } from '../../services/game.service';
 
@@ -16,7 +17,8 @@ export class CreateGameComponent implements OnInit {
   constructor(
     private readonly titleService: Title,
     private readonly metaService: Meta,
-    private readonly gameService: GameService
+    private readonly gameService: GameService,
+    private readonly router: Router
   ) {}
 
   ngOnInit(): void {
@@ -27,7 +29,7 @@ export class CreateGameComponent implements OnInit {
   onGameCreated(gameName: string) {
     this.gameService.createGame(gameName).subscribe({
       next: (response) => {
-        alert(`¡Partida "${response.name}" creada! Revisa la consola. El id es: ${response.id}`);
+        this.router.navigate(['/create-user']);
       },
       error: (err) => console.error(err)
     });

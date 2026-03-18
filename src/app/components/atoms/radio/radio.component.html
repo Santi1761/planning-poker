@@ -1,0 +1,16 @@
+<label class="radio-container" (click)="onSelect()">
+  <span class="radio-label">{{ label }}</span>
+
+  <div class="radio-custom" [class.checked]="control.value === value">
+    <div class="radio-inner-circle" *ngIf="control.value === value"></div>
+  </div>
+
+  <input
+    type="radio"
+    [name]="name"
+    [value]="value"
+    [formControl]="control"
+    class="radio-hidden"
+    tabindex="-1"
+  >
+</label>

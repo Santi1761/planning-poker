@@ -1,0 +1,32 @@
+<form [formGroup]="userForm" (ngSubmit)="onSubmit()" class="user-form-card">
+
+  <app-form-field
+    label="Tu nombre"
+    id="userName"
+    [control]="userNameControl">
+  </app-form-field>
+
+  <div class="radio-group-container">
+    <app-radio
+      label="Jugador"
+      value="jugador"
+      name="viewMode"
+      [control]="viewModeControl">
+    </app-radio>
+
+    <app-radio
+      label="Espectador"
+      value="espectador"
+      name="viewMode"
+      [control]="viewModeControl">
+    </app-radio>
+  </div>
+
+  <div class="button-container">
+    <app-button
+      text="Continuar"
+      type="submit"
+      [disabled]="userForm.invalid || isLoading">
+    </app-button>
+  </div>
+</form>
