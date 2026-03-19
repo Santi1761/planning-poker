@@ -66,4 +66,16 @@ describe('GameBoardComponent', () => {
     component.onCardSelected('21');
     expect(component.mockPlayers[4].hasVoted).toBeTruthy();
   });
+
+  it('debería revelar las cartas y llenar los votos simulados al ejecutar revealCards() (AC1 y AC2)', () => {
+    jest.spyOn(storagePort, 'getGameName').mockReturnValue('Sprint 32');
+    jest.spyOn(storagePort, 'getUser').mockReturnValue({ name: 'Luisa', role: 'propietario', viewMode: 'jugador' });
+    fixture.detectChanges();
+
+    component.revealCards();
+
+    expect(component.isRevealed).toBeTruthy();
+    expect(component.mockPlayers[0].voteValue).toBe('3');
+    expect(component.mockPlayers[3].voteValue).toBe('21');
+  });
 });

@@ -24,13 +24,13 @@ describe('CardDeckComponent', () => {
     component = fixture.componentInstance;
   });
 
-  it('debería cargar las cartas exitosamente al iniciar (AC4)', () => {
+  it('debería cargar las cartas exitosamente al iniciar', () => {
     fixture.detectChanges();
     expect(component.cards).toEqual(['1', '2', '3']);
     expect(component.isLoading).toBeFalsy();
   });
 
-  it('debería mostrar lista vacía si el servicio falla (AC4)', () => {
+  it('debería mostrar lista vacía si el servicio falla', () => {
     cardServiceMock.getAvailableCards.mockReturnValue(throwError(() => new Error('Error de red')));
     fixture.detectChanges();
 
@@ -38,7 +38,7 @@ describe('CardDeckComponent', () => {
     expect(component.isLoading).toBeFalsy();
   });
 
-  it('debería emitir el evento al seleccionar una carta (AC2)', () => {
+  it('debería emitir el evento al seleccionar una carta', () => {
     fixture.detectChanges();
     jest.spyOn(component.cardSelected, 'emit');
 
