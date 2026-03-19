@@ -58,7 +58,7 @@ describe('GameBoardComponent', () => {
     expect(router.navigate).not.toHaveBeenCalled();
   });
 
-  it('debería voltear la carta del usuario en la mesa al ejecutar onCardSelected (AC5)', () => {
+  it('debería voltear la carta del usuario en la mesa al ejecutar onCardSelected ', () => {
     jest.spyOn(storagePort, 'getGameName').mockReturnValue('Sprint 32');
     jest.spyOn(storagePort, 'getUser').mockReturnValue({ name: 'Luisa', role: 'propietario', viewMode: 'jugador' });
     fixture.detectChanges();
@@ -67,7 +67,7 @@ describe('GameBoardComponent', () => {
     expect(component.mockPlayers[4].hasVoted).toBeTruthy();
   });
 
-  it('debería revelar las cartas y llenar los votos simulados al ejecutar revealCards() (AC1 y AC2)', () => {
+  it('debería revelar las cartas y llenar los votos simulados al ejecutar revealCards()', () => {
     jest.spyOn(storagePort, 'getGameName').mockReturnValue('Sprint 32');
     jest.spyOn(storagePort, 'getUser').mockReturnValue({ name: 'Luisa', role: 'propietario', viewMode: 'jugador' });
     fixture.detectChanges();
