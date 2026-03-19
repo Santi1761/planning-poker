@@ -2,7 +2,9 @@
 
   <app-player-card
     *ngIf="player.type === 'jugador'"
-    [hasVoted]="player.hasVoted">
+    [hasVoted]="player.hasVoted"
+    [isRevealed]="isRevealed"
+    [value]="player.voteValue">
   </app-player-card>
 
   <app-spectator-badge

@@ -10,4 +10,6 @@ import { CommonModule } from '@angular/common';
 })
 export class PlayerCardComponent {
   @Input() hasVoted: boolean = false;
+  @Input() isRevealed: boolean = false;
+  @Input() value?: string;
 }

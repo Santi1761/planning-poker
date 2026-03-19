@@ -11,4 +11,5 @@ import { PlayerSlotComponent, PlayerInfo } from '../../molecules/player-slot/pla
 })
 export class PokerTableComponent {
   @Input() players: PlayerInfo[] = [];
+  @Input() isRevealed: boolean = false;
 }

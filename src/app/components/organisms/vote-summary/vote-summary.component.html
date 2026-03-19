@@ -1,0 +1,13 @@
+<div class="summary-container">
+  <div class="cards-summary">
+    <div class="vote-group" *ngFor="let vote of voteCounts">
+      <app-score-card [value]="vote.value" [isSelected]="true"></app-score-card>
+      <span class="vote-count">{{ vote.count }} {{ vote.count === 1 ? 'Voto' : 'Votos' }}</span>
+    </div>
+  </div>
+
+  <div class="average-summary">
+    <span class="average-label">Promedio:</span>
+    <span class="average-value">{{ average }}</span>
+  </div>
+</div>

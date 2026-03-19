@@ -1,1 +1,5 @@
-<div class="card" [class.voted]="hasVoted"></div>
+<div class="card"
+     [class.voted]="hasVoted && !isRevealed"
+     [class.revealed]="hasVoted && isRevealed">
+  <span *ngIf="hasVoted && isRevealed" class="card-value">{{ value }}</span>
+</div>

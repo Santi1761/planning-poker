@@ -1,0 +1,50 @@
+.summary-container {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 64px;
+  width: 100%;
+  animation: slideUp 0.5s ease-out;
+}
+
+.cards-summary {
+  display: flex;
+  gap: 16px;
+}
+
+.vote-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.vote-count {
+  font-size: 14px;
+  color: #FFFFFF;
+  opacity: 0.8;
+}
+
+.average-summary {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.average-label {
+  font-size: 16px;
+  color: #FFFFFF;
+  margin-bottom: 4px;
+}
+
+.average-value {
+  font-size: 48px;
+  font-weight: 700;
+  color: #FFFFFF;
+  line-height: 1;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}

@@ -3,12 +3,12 @@ import { CommonModule } from '@angular/common';
 import { PlayerCardComponent } from '../../atoms/player-card/player-card.component';
 import { SpectatorBadgeComponent } from '../../atoms/spectator-badge/spectator-badge.component';
 
-// Definimos la interfaz aquí mismo para mantener el tipado estricto
 export interface PlayerInfo {
   name: string;
   type: 'jugador' | 'espectador';
   hasVoted: boolean;
   initials: string;
+  voteValue?: string;
 }
 
 @Component({
@@ -25,4 +25,5 @@ export class PlayerSlotComponent {
     hasVoted: false,
     initials: ''
   };
+  @Input() isRevealed: boolean = false;
 }

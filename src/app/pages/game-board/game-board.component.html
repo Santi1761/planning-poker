@@ -14,11 +14,26 @@
     </div>
   </header>
 
-  <main class="board-main">
-    <app-poker-table [players]="mockPlayers"></app-poker-table>
+  <main class="board-main" style="position: relative;">
+    <app-poker-table [players]="mockPlayers" [isRevealed]="isRevealed"></app-poker-table>
+
+    <button
+      class="reveal-btn"
+      *ngIf="userRole === 'propietario' && !isRevealed"
+      (click)="revealCards()">
+      Revelar cartas
+    </button>
   </main>
 
-  <footer class="board-footer" *ngIf="userViewMode === 'jugador'">
-    <app-card-deck (cardSelected)="onCardSelected($event)"></app-card-deck>
+  <footer class="board-footer">
+    <app-card-deck
+      *ngIf="userViewMode === 'jugador' && !isRevealed"
+      (cardSelected)="onCardSelected($event)">
+    </app-card-deck>
+
+    <app-vote-summary
+      *ngIf="isRevealed"
+      [players]="mockPlayers">
+    </app-vote-summary>
   </footer>
 </div>
