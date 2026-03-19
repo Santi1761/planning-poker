@@ -1,22 +1,50 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { CardDeckComponent } from './card-deck.component';
+import { CardService } from '../../../services/card.service';
+import { of, throwError } from 'rxjs';
 
-import { CardDeck } from './card-deck.component';
-
-describe('CardDeck', () => {
-  let component: CardDeck;
-  let fixture: ComponentFixture<CardDeck>;
+describe('CardDeckComponent', () => {
+  let component: CardDeckComponent;
+  let fixture: ComponentFixture<CardDeckComponent>;
+  let cardServiceMock: any;
 
   beforeEach(async () => {
+    cardServiceMock = {
+      getAvailableCards: jest.fn().mockReturnValue(of(['1', '2', '3']))
+    };
+
     await TestBed.configureTestingModule({
-      imports: [CardDeck],
+      imports: [CardDeckComponent],
+      providers: [
+        { provide: CardService, useValue: cardServiceMock }
+      ]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(CardDeck);
+    fixture = TestBed.createComponent(CardDeckComponent);
     component = fixture.componentInstance;
-    await fixture.whenStable();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('debería cargar las cartas exitosamente al iniciar (AC4)', () => {
+    fixture.detectChanges();
+    expect(component.cards).toEqual(['1', '2', '3']);
+    expect(component.isLoading).toBeFalsy();
+  });
+
+  it('debería mostrar lista vacía si el servicio falla (AC4)', () => {
+    cardServiceMock.getAvailableCards.mockReturnValue(throwError(() => new Error('Error de red')));
+    fixture.detectChanges();
+
+    expect(component.cards.length).toBe(0);
+    expect(component.isLoading).toBeFalsy();
+  });
+
+  it('debería emitir el evento al seleccionar una carta (AC2)', () => {
+    fixture.detectChanges();
+    jest.spyOn(component.cardSelected, 'emit');
+
+    component.onSelect('8');
+
+    expect(component.selectedCard).toBe('8');
+    expect(component.cardSelected.emit).toHaveBeenCalledWith('8');
   });
 });
