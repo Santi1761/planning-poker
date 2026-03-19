@@ -1,0 +1,31 @@
+.score-card {
+  width: 44px;
+  height: 64px;
+  background-color: transparent;
+  border: 1px solid rgba(155, 81, 224, 0.6);
+  border-radius: 8px;
+  color: #FFFFFF;
+  font-family: 'Poppins', sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    transform: translateY(-8px);
+    border-color: #9b51e0;
+    box-shadow: 0 4px 12px rgba(155, 81, 224, 0.4);
+  }
+
+  &.selected {
+    background-color: #E0C3FC;
+    color: #330072;
+    border-color: #E0C3FC;
+    font-weight: 700;
+    transform: translateY(-12px);
+    box-shadow: 0 8px 16px rgba(224, 195, 252, 0.3);
+  }
+}

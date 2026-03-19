@@ -3,19 +3,21 @@ import { CommonModule } from '@angular/common';
 import { Title, Meta } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { PokerTableComponent } from '../../components/organisms/poker-table/poker-table.component';
+import { CardDeckComponent } from '../../components/organisms/card-deck/card-deck.component';
 import { PlayerInfo } from '../../components/molecules/player-slot/player-slot.component';
 import { StoragePort } from '../../core/ports/storage.port';
 
 @Component({
   selector: 'app-game-board',
   standalone: true,
-  imports: [CommonModule, PokerTableComponent],
+  imports: [CommonModule, PokerTableComponent, CardDeckComponent],
   templateUrl: './game-board.component.html',
   styleUrl: './game-board.component.scss'
 })
 export class GameBoardComponent implements OnInit {
   gameName: string = '';
   userInitials: string = '';
+  userViewMode: string = 'jugador';
   mockPlayers: PlayerInfo[] = [];
 
   constructor(
@@ -37,6 +39,8 @@ export class GameBoardComponent implements OnInit {
     this.titleService.setTitle(`${savedGameName} | Mesa`);
     this.gameName = savedGameName;
     this.userInitials = savedUser.name.substring(0, 2).toUpperCase();
+    this.userViewMode = savedUser.viewMode;
+
     this.mockPlayers = [
       { name: 'Oscar', type: 'jugador', hasVoted: false, initials: '' },
       { name: 'David', type: 'espectador', hasVoted: false, initials: 'DA' },
@@ -52,5 +56,10 @@ export class GameBoardComponent implements OnInit {
       { name: 'Vale', type: 'jugador', hasVoted: false, initials: '' },
       { name: 'Pedro', type: 'jugador', hasVoted: false, initials: '' }
     ];
+  }
+
+  onCardSelected(cardValue: string) {
+    this.mockPlayers[4].hasVoted = true;
+    this.mockPlayers = [...this.mockPlayers];
   }
 }

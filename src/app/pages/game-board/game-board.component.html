@@ -17,4 +17,8 @@
   <main class="board-main">
     <app-poker-table [players]="mockPlayers"></app-poker-table>
   </main>
+
+  <footer class="board-footer" *ngIf="userViewMode === 'jugador'">
+    <app-card-deck (cardSelected)="onCardSelected($event)"></app-card-deck>
+  </footer>
 </div>
