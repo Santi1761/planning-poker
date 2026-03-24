@@ -1,0 +1,37 @@
+.join-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.form-wrapper {
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.logo-container {
+  margin-bottom: 32px;
+}
+
+.logo {
+  height: 60px;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #330072;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}

@@ -21,4 +21,23 @@ export class UserService {
 
     return of(mockResponse).pipe(delay(1000));
   }
+
+  joinGame(userData: UserPayload, gameId: string): Observable<UserResponse> {
+    const mockResponse: UserResponse = {
+      id: 'usr_' + Math.floor(Math.random() * 10000),
+      name: userData.name,
+      viewMode: userData.viewMode,
+      role: 'propietario'
+    };
+
+    this.storage.saveGameId(gameId);
+
+    if (!this.storage.getGameName()) {
+      this.storage.saveGameName('Partida Invitado');
+    }
+
+    this.storage.saveUser(mockResponse.name, mockResponse.role, mockResponse.viewMode);
+
+    return of(mockResponse).pipe(delay(1000));
+  }
 }
