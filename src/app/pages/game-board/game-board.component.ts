@@ -16,6 +16,7 @@ import { InviteModalComponent } from "../../components/organisms/invite-modal/in
   templateUrl: './game-board.component.html',
   styleUrl: './game-board.component.scss'
 })
+
 export class GameBoardComponent implements OnInit {
   gameName: string = '';
   gameId: string = '';
@@ -50,21 +51,46 @@ export class GameBoardComponent implements OnInit {
     this.userViewMode = savedUser.viewMode;
     this.userRole = savedUser.role;
 
-    this.mockPlayers = [
-      { name: 'Oscar', type: 'jugador', hasVoted: false, initials: '' },
-      { name: 'David', type: 'espectador', hasVoted: false, initials: 'DA' },
-      { name: 'Albert', type: 'jugador', hasVoted: false, initials: '' },
-      { name: 'Carlos', type: 'jugador', hasVoted: false, initials: '' },
-      {
-        name: savedUser.name,
-        type: savedUser.viewMode as 'jugador' | 'espectador',
-        hasVoted: false,
-        initials: this.userInitials
-      },
-      { name: 'Nata', type: 'jugador', hasVoted: false, initials: '' },
-      { name: 'Vale', type: 'jugador', hasVoted: false, initials: '' },
-      { name: 'Pedro', type: 'jugador', hasVoted: false, initials: '' }
-    ];
+    this.buildMultiplayerTable(savedUser);
+  }
+
+  buildMultiplayerTable(savedUser: { name: string, role: string, viewMode: string }) {
+
+    if (savedUser.role === 'jugador') {
+
+      this.mockPlayers = [
+        { name: 'Admin (Host)', type: 'jugador', hasVoted: false, initials: 'AD' },
+        { name: 'David', type: 'espectador', hasVoted: false, initials: 'DA' },
+        { name: 'Albert', type: 'jugador', hasVoted: false, initials: '' },
+        { name: 'Carlos', type: 'jugador', hasVoted: false, initials: '' },
+        {
+          name: savedUser.name,
+          type: savedUser.viewMode as 'jugador' | 'espectador',
+          hasVoted: false,
+          initials: this.userInitials
+        },
+        { name: 'Nata', type: 'jugador', hasVoted: false, initials: '' },
+        { name: 'Vale', type: 'jugador', hasVoted: false, initials: '' },
+        { name: 'Pedro', type: 'jugador', hasVoted: false, initials: '' }
+      ];
+    } else {
+
+      this.mockPlayers = [
+        { name: 'Oscar', type: 'jugador', hasVoted: false, initials: '' },
+        { name: 'David', type: 'espectador', hasVoted: false, initials: 'DA' },
+        { name: 'Albert', type: 'jugador', hasVoted: false, initials: '' },
+        { name: 'Carlos', type: 'jugador', hasVoted: false, initials: '' },
+        {
+          name: savedUser.name,
+          type: savedUser.viewMode as 'jugador' | 'espectador',
+          hasVoted: false,
+          initials: this.userInitials
+        },
+        { name: 'Nata', type: 'jugador', hasVoted: false, initials: '' },
+        { name: 'Vale', type: 'jugador', hasVoted: false, initials: '' },
+        { name: 'Invitado', type: 'jugador', hasVoted: false, initials: 'IN' }
+      ];
+    }
   }
 
   onCardSelected(cardValue: string) {

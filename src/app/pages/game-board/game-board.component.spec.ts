@@ -115,4 +115,20 @@ describe('GameBoardComponent', () => {
     component.closeInviteModal();
     expect(component.isModalOpen).toBeFalsy();
   });
+
+  it('debería construir la mesa simulada para un jugador invitado', () => {
+    component.userInitials = 'JU';
+    component.buildMultiplayerTable({ name: 'Juanse', role: 'jugador', viewMode: 'jugador' });
+
+    expect(component.mockPlayers[0].name).toBe('Admin (Host)');
+    expect(component.mockPlayers[4].name).toBe('Juanse');
+  });
+
+  it('debería construir la mesa simulada para el propietario creador', () => {
+    component.userInitials = 'LO';
+    component.buildMultiplayerTable({ name: 'Lopez', role: 'propietario', viewMode: 'jugador' });
+
+    expect(component.mockPlayers[4].name).toBe('Lopez');
+    expect(component.mockPlayers[7].name).toBe('Invitado');
+  });
 });
