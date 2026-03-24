@@ -58,7 +58,7 @@ describe('GameBoardComponent', () => {
     expect(router.navigate).not.toHaveBeenCalled();
   });
 
-  it('debería voltear la carta del usuario en la mesa al ejecutar onCardSelected ', () => {
+  it('debería voltear la carta del usuario en la mesa al ejecutar onCardSelected', () => {
     jest.spyOn(storagePort, 'getGameName').mockReturnValue('Sprint 32');
     jest.spyOn(storagePort, 'getUser').mockReturnValue({ name: 'Luisa', role: 'propietario', viewMode: 'jugador' });
     fixture.detectChanges();
@@ -77,5 +77,24 @@ describe('GameBoardComponent', () => {
     expect(component.isRevealed).toBeTruthy();
     expect(component.mockPlayers[0].voteValue).toBe('3');
     expect(component.mockPlayers[3].voteValue).toBe('21');
+  });
+
+  it('debería reiniciar la partida limpiando los votos al ejecutar restartGame()', () => {
+    jest.spyOn(storagePort, 'getGameName').mockReturnValue('Sprint 32');
+    jest.spyOn(storagePort, 'getUser').mockReturnValue({ name: 'Luisa', role: 'propietario', viewMode: 'jugador' });
+    fixture.detectChanges();
+
+    component.revealCards();
+    expect(component.isRevealed).toBeTruthy();
+    expect(component.mockPlayers[0].hasVoted).toBeTruthy();
+    expect(component.mockPlayers[0].voteValue).toBe('3');
+    component.restartGame();
+
+    expect(component.isRevealed).toBeFalsy();
+
+    expect(component.mockPlayers[0].hasVoted).toBeFalsy();
+    expect(component.mockPlayers[0].voteValue).toBeUndefined();
+    expect(component.mockPlayers[4].hasVoted).toBeFalsy();
+    expect(component.mockPlayers[4].voteValue).toBeUndefined();
   });
 });

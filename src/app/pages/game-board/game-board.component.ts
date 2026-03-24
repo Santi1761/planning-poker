@@ -79,4 +79,14 @@ export class GameBoardComponent implements OnInit {
     this.mockPlayers[7].voteValue = '13'; this.mockPlayers[7].hasVoted = true;
     this.mockPlayers = [...this.mockPlayers];
   }
+
+  restartGame() {
+    this.isRevealed = false;
+
+    this.mockPlayers = this.mockPlayers.map(player => ({
+      ...player,
+      hasVoted: false,
+      voteValue: undefined
+    }));
+  }
 }

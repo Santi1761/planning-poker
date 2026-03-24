@@ -17,12 +17,23 @@
   <main class="board-main" style="position: relative;">
     <app-poker-table [players]="mockPlayers" [isRevealed]="isRevealed"></app-poker-table>
 
-    <button
-      class="reveal-btn"
-      *ngIf="userRole === 'propietario' && !isRevealed"
-      (click)="revealCards()">
-      Revelar cartas
-    </button>
+    <ng-container *ngIf="userRole === 'propietario'">
+
+      <button
+        class="reveal-btn"
+        *ngIf="!isRevealed"
+        (click)="revealCards()">
+        Revelar cartas
+      </button>
+
+      <button
+        class="reveal-btn"
+        *ngIf="isRevealed"
+        (click)="restartGame()">
+        Nueva votación
+      </button>
+
+    </ng-container>
   </main>
 
   <footer class="board-footer">
