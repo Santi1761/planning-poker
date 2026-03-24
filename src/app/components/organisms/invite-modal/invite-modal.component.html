@@ -1,0 +1,21 @@
+<div class="modal-overlay" (click)="close.emit()">
+
+  <div class="modal-content" (click)="$event.stopPropagation()">
+
+    <header class="modal-header">
+      <h2>Invitar jugadores</h2>
+      <button class="close-btn" (click)="close.emit()">✕</button>
+    </header>
+
+    <div class="modal-body">
+      <div class="input-wrapper">
+        <input type="text" [value]="inviteLink" readonly class="link-input">
+      </div>
+
+      <button class="copy-btn" [class.copied]="isCopied" (click)="copyLink()">
+        {{ isCopied ? '¡Copiado!' : 'Copiar link' }}
+      </button>
+    </div>
+
+  </div>
+</div>

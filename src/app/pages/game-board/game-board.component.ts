@@ -7,20 +7,23 @@ import { CardDeckComponent } from '../../components/organisms/card-deck/card-dec
 import { VoteSummaryComponent } from '../../components/organisms/vote-summary/vote-summary.component';
 import { PlayerInfo } from '../../components/molecules/player-slot/player-slot.component';
 import { StoragePort } from '../../core/ports/storage.port';
+import { InviteModalComponent } from "../../components/organisms/invite-modal/invite-modal.component";
 
 @Component({
   selector: 'app-game-board',
   standalone: true,
-  imports: [CommonModule, PokerTableComponent, CardDeckComponent, VoteSummaryComponent],
+  imports: [CommonModule, PokerTableComponent, CardDeckComponent, VoteSummaryComponent, InviteModalComponent],
   templateUrl: './game-board.component.html',
   styleUrl: './game-board.component.scss'
 })
 export class GameBoardComponent implements OnInit {
   gameName: string = '';
+  gameId: string = '';
   userInitials: string = '';
   userViewMode: string = 'jugador';
   userRole: string = 'propietario';
   isRevealed: boolean = false;
+  isModalOpen: boolean = false;
   mockPlayers: PlayerInfo[] = [];
 
   constructor(
@@ -33,14 +36,16 @@ export class GameBoardComponent implements OnInit {
   ngOnInit(): void {
     const savedGameName = this.storage.getGameName();
     const savedUser = this.storage.getUser();
+    const savedGameId = this.storage.getGameId();
 
-    if (!savedGameName || !savedUser) {
+    if (!savedGameName || !savedUser || !savedGameId) {
       this.router.navigate(['/']);
       return;
     }
 
     this.titleService.setTitle(`${savedGameName} | Mesa`);
     this.gameName = savedGameName;
+    this.gameId = savedGameId;
     this.userInitials = savedUser.name.substring(0, 2).toUpperCase();
     this.userViewMode = savedUser.viewMode;
     this.userRole = savedUser.role;
@@ -88,5 +93,13 @@ export class GameBoardComponent implements OnInit {
       hasVoted: false,
       voteValue: undefined
     }));
+  }
+
+  openInviteModal() {
+    this.isModalOpen = true;
+  }
+
+  closeInviteModal() {
+    this.isModalOpen = false;
   }
 }

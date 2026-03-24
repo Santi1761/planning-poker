@@ -10,7 +10,7 @@
 
     <div class="header-right">
       <div class="user-badge">{{ userInitials }}</div>
-      <button class="invite-btn">Invitar jugadores</button>
+      <button class="invite-btn" (click)="openInviteModal()">Invitar jugadores</button>
     </div>
   </header>
 
@@ -47,4 +47,11 @@
       [players]="mockPlayers">
     </app-vote-summary>
   </footer>
+
+  <app-invite-modal
+    *ngIf="isModalOpen"
+    [gameId]="gameId"
+    (close)="closeInviteModal()">
+  </app-invite-modal>
+
 </div>

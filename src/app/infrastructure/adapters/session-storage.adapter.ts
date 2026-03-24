@@ -14,6 +14,14 @@ export class SessionStorageAdapter implements StoragePort {
     return sessionStorage.getItem('gameName');
   }
 
+  saveGameId(id: string): void {
+    sessionStorage.setItem('gameId', id);
+  }
+
+  getGameId(): string | null {
+    return sessionStorage.getItem('gameId');
+  }
+
   saveUser(name: string, role: string, viewMode: string): void {
     const user = { name, role, viewMode };
     sessionStorage.setItem('currentUser', JSON.stringify(user));
