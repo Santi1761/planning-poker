@@ -16,10 +16,13 @@ describe('GameBoardComponent', () => {
     const titleMock = { setTitle: jest.fn() };
     const metaMock = { updateTag: jest.fn() };
     const routerMock = { navigate: jest.fn() };
+
     const storageMock = {
       getGameName: jest.fn(),
-      getUser: jest.fn()
+      getUser: jest.fn(),
+      getGameId: jest.fn().mockReturnValue('mock-id')
     };
+
     const cardPortMock = {
       getCards: jest.fn().mockReturnValue(of(['1', '3', '5']))
     };
@@ -96,5 +99,20 @@ describe('GameBoardComponent', () => {
     expect(component.mockPlayers[0].voteValue).toBeUndefined();
     expect(component.mockPlayers[4].hasVoted).toBeFalsy();
     expect(component.mockPlayers[4].voteValue).toBeUndefined();
+  });
+
+  it('debería abrir y cerrar el modal de invitación', () => {
+    jest.spyOn(storagePort, 'getGameName').mockReturnValue('Sprint 32');
+    jest.spyOn(storagePort, 'getUser').mockReturnValue({ name: 'Luisa', role: 'propietario', viewMode: 'jugador' });
+    jest.spyOn(storagePort, 'getGameId').mockReturnValue('ID-123');
+    fixture.detectChanges();
+
+    expect(component.isModalOpen).toBeFalsy();
+
+    component.openInviteModal();
+    expect(component.isModalOpen).toBeTruthy();
+
+    component.closeInviteModal();
+    expect(component.isModalOpen).toBeFalsy();
   });
 });

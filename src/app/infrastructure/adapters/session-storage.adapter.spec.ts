@@ -28,4 +28,10 @@ describe('SessionStorageAdapter', () => {
   it('debería retornar null si no hay usuario guardado', () => {
     expect(adapter.getUser()).toBeNull();
   });
+
+  it('debería guardar y obtener el id del juego', () => {
+    adapter.saveGameId('ID-SECRETO-999');
+    expect(sessionStorage.getItem('gameId')).toBe('ID-SECRETO-999');
+    expect(adapter.getGameId()).toBe('ID-SECRETO-999');
+  });
 });

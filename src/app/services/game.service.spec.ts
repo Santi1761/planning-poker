@@ -7,7 +7,10 @@ describe('GameService', () => {
   let storageMock: any;
 
   beforeEach(() => {
-    storageMock = { saveGameName: jest.fn() };
+    storageMock = {
+      saveGameName: jest.fn(),
+      saveGameId: jest.fn()
+    };
 
     TestBed.configureTestingModule({
       providers: [
@@ -17,10 +20,11 @@ describe('GameService', () => {
     service = TestBed.inject(GameService);
   });
 
-  it('debería simular la creación de la partida', (done) => {
+  it('debería simular la creación de la partida y guardar ID y nombre', (done) => {
     service.createGame('Pragma Game').subscribe(response => {
       expect(response.name).toBe('Pragma Game');
       expect(storageMock.saveGameName).toHaveBeenCalledWith('Pragma Game');
+      expect(storageMock.saveGameId).toHaveBeenCalledWith(response.id);
       done();
     });
   });
