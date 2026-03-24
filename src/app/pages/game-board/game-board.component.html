@@ -9,6 +9,15 @@
     </div>
 
     <div class="header-right">
+      <div class="view-mode-toggle">
+        <span [class.active]="userViewMode === 'espectador'">Espectador</span>
+        <label class="switch">
+          <input type="checkbox" [checked]="userViewMode === 'jugador'" (change)="toggleViewMode()">
+          <span class="slider round"></span>
+        </label>
+        <span [class.active]="userViewMode === 'jugador'">Jugador</span>
+      </div>
+
       <div class="user-badge">{{ userInitials }}</div>
       <button class="invite-btn" (click)="openInviteModal()">Invitar jugadores</button>
     </div>

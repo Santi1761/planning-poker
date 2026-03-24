@@ -121,6 +121,24 @@ export class GameBoardComponent implements OnInit {
     }));
   }
 
+  toggleViewMode() {
+    this.userViewMode = this.userViewMode === 'jugador' ? 'espectador' : 'jugador';
+
+    this.mockPlayers[4].type = this.userViewMode as 'jugador' | 'espectador';
+
+    if (this.userViewMode === 'espectador') {
+      this.mockPlayers[4].hasVoted = false;
+      this.mockPlayers[4].voteValue = undefined;
+    }
+
+    this.mockPlayers = [...this.mockPlayers];
+
+    const savedUser = this.storage.getUser();
+    if (savedUser) {
+      this.storage.saveUser(savedUser.name, savedUser.role, this.userViewMode);
+    }
+  }
+
   openInviteModal() {
     this.isModalOpen = true;
   }
