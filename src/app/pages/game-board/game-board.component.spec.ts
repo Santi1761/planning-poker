@@ -131,4 +131,19 @@ describe('GameBoardComponent', () => {
     expect(component.mockPlayers[4].name).toBe('Lopez');
     expect(component.mockPlayers[7].name).toBe('Invitado');
   });
+
+  it('debería permitir a un usuario invitado elegir una carta y actualizar su estado en la mesa ', () => {
+    component.userRole = 'jugador';
+    component.userViewMode = 'jugador';
+    component.userInitials = 'JU';
+
+    component.buildMultiplayerTable({ name: 'Juanse', role: 'jugador', viewMode: 'jugador' });
+
+    expect(component.mockPlayers[4].hasVoted).toBeFalsy();
+
+    component.onCardSelected('21');
+
+    expect(component.mockPlayers[4].hasVoted).toBeTruthy();
+    expect(component.mockPlayers[4].voteValue).toBe('21');
+  });
 });
