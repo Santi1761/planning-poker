@@ -18,4 +18,11 @@ describe('PokerTableComponent', () => {
   it('debería crear el componente', () => {
     expect(component).toBeTruthy();
   });
+
+  it('debería emitir playerClicked con el índice correcto al hacer clic en un slot (HU13)', () => {
+    jest.spyOn(component.playerClicked, 'emit');
+
+    component.playerClicked.emit(1);
+    expect(component.playerClicked.emit).toHaveBeenCalledWith(1);
+  });
 });

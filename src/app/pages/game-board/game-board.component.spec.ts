@@ -188,4 +188,30 @@ describe('GameBoardComponent', () => {
     expect(component.mockPlayers[4].type).toBe('jugador');
     expect(saveUserSpy).toHaveBeenCalledWith('Juanse', 'jugador', 'jugador');
   });
+
+  it('debería permitir al propietario dar rol de admin a otro jugador', () => {
+
+    component.userRole = 'propietario';
+    component.buildMultiplayerTable({ name: 'Lopez', role: 'propietario', viewMode: 'jugador' });
+    expect(component.mockPlayers[0].isAdmin).toBeFalsy();
+
+    component.makeAdmin(0);
+    expect(component.mockPlayers[0].isAdmin).toBeTruthy();
+  });
+
+  it('no debería permitir al propietario darse admin a sí mismo', () => {
+
+    component.userRole = 'propietario';
+    component.buildMultiplayerTable({ name: 'Lopez', role: 'propietario', viewMode: 'jugador' });
+    component.makeAdmin(4);
+    expect(component.mockPlayers[4].isAdmin).toBeFalsy();
+  });
+
+  it('no debería permitir a un jugador o espectador dar rol de admin', () => {
+
+    component.userRole = 'jugador';
+    component.buildMultiplayerTable({ name: 'Invitado', role: 'jugador', viewMode: 'jugador' });
+    component.makeAdmin(1);
+    expect(component.mockPlayers[1].isAdmin).toBeFalsy();
+  });
 });

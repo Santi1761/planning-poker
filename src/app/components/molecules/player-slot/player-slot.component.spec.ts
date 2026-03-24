@@ -20,4 +20,12 @@ describe('PlayerSlotComponent', () => {
     const nameElement = fixture.nativeElement.querySelector('.player-name');
     expect(nameElement.textContent).toContain('Santiago');
   });
+
+  it('debería emitir slotClicked al hacer clic en el contenedor del jugador', () => {
+
+    jest.spyOn(component.slotClicked, 'emit');
+    const container = fixture.nativeElement.querySelector('.slot-container');
+    container.click();
+    expect(component.slotClicked.emit).toHaveBeenCalled();
+  });
 });
