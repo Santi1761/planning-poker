@@ -20,7 +20,8 @@ describe('GameBoardComponent', () => {
     const storageMock = {
       getGameName: jest.fn(),
       getUser: jest.fn(),
-      getGameId: jest.fn().mockReturnValue('mock-id')
+      getGameId: jest.fn().mockReturnValue('mock-id'),
+      saveUser: jest.fn()
     };
 
     const cardPortMock = {
@@ -155,5 +156,36 @@ describe('GameBoardComponent', () => {
 
     component.openInviteModal();
     expect(component.isModalOpen).toBeTruthy();
+  });
+
+  it('debería cambiar el modo de visualización de jugador a espectador y limpiar el voto ', () => {
+
+    component.userViewMode = 'jugador';
+    component.mockPlayers[4] = { name: 'Juanse', type: 'jugador', hasVoted: true, initials: 'JU', voteValue: '21' };
+    const saveUserSpy = jest.spyOn(storagePort, 'saveUser').mockImplementation();
+    jest.spyOn(storagePort, 'getUser').mockReturnValue({ name: 'Juanse', role: 'jugador', viewMode: 'jugador' });
+
+    component.toggleViewMode();
+
+    expect(component.userViewMode).toBe('espectador');
+    expect(component.mockPlayers[4].type).toBe('espectador');
+    expect(component.mockPlayers[4].hasVoted).toBeFalsy();
+    expect(component.mockPlayers[4].voteValue).toBeUndefined();
+    expect(saveUserSpy).toHaveBeenCalledWith('Juanse', 'jugador', 'espectador');
+  });
+
+  it('debería cambiar el modo de visualización de espectador a jugador', () => {
+
+    component.userViewMode = 'espectador';
+    component.mockPlayers[4] = { name: 'Juanse', type: 'espectador', hasVoted: false, initials: 'JU' };
+
+    const saveUserSpy = jest.spyOn(storagePort, 'saveUser').mockImplementation();
+    jest.spyOn(storagePort, 'getUser').mockReturnValue({ name: 'Juanse', role: 'jugador', viewMode: 'espectador' });
+
+    component.toggleViewMode();
+
+    expect(component.userViewMode).toBe('jugador');
+    expect(component.mockPlayers[4].type).toBe('jugador');
+    expect(saveUserSpy).toHaveBeenCalledWith('Juanse', 'jugador', 'jugador');
   });
 });
