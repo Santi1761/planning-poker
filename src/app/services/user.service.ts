@@ -27,7 +27,7 @@ export class UserService {
       id: 'usr_' + Math.floor(Math.random() * 10000),
       name: userData.name,
       viewMode: userData.viewMode,
-      role: 'propietario'
+      role: 'jugador'
     };
 
     this.storage.saveGameId(gameId);
