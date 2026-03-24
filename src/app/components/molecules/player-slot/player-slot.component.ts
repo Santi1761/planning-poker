@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PlayerCardComponent } from '../../atoms/player-card/player-card.component';
 import { SpectatorBadgeComponent } from '../../atoms/spectator-badge/spectator-badge.component';
@@ -9,6 +9,7 @@ export interface PlayerInfo {
   hasVoted: boolean;
   initials: string;
   voteValue?: string;
+  isAdmin?: boolean;
 }
 
 @Component({
@@ -26,4 +27,6 @@ export class PlayerSlotComponent {
     initials: ''
   };
   @Input() isRevealed: boolean = false;
+
+  @Output() slotClicked = new EventEmitter<void>();
 }

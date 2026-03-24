@@ -146,4 +146,19 @@ export class GameBoardComponent implements OnInit {
   closeInviteModal() {
     this.isModalOpen = false;
   }
+
+  makeAdmin(playerIndex: number) {
+    if (this.userRole !== 'propietario') {
+
+      return;
+    }
+
+    if (playerIndex === 4) {
+
+      return;
+    }
+
+    this.mockPlayers[playerIndex].isAdmin = !this.mockPlayers[playerIndex].isAdmin;
+    this.mockPlayers = [...this.mockPlayers];
+  }
 }

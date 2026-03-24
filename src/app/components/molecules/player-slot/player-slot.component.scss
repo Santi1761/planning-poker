@@ -4,6 +4,13 @@
   align-items: center;
   gap: 12px;
   animation: fadeIn 0.5s ease-in;
+
+  cursor: pointer;
+  transition: transform 0.2s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+  }
 }
 
 .player-name {
@@ -16,4 +23,9 @@
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+.admin-crown {
+  font-size: 12px;
+  margin-left: 4px;
 }

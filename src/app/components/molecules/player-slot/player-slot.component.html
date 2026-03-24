@@ -1,4 +1,4 @@
-<div class="slot-container">
+<div class="slot-container" (click)="slotClicked.emit()">
 
   <app-player-card
     *ngIf="player.type === 'jugador'"
@@ -12,5 +12,8 @@
     [initials]="player.initials">
   </app-spectator-badge>
 
-  <span class="player-name">{{ player.name }}</span>
+  <span class="player-name">
+    {{ player.name }}
+    <span *ngIf="player.isAdmin" class="admin-crown" title="Administrador">(ADMIN)</span>
+  </span>
 </div>
