@@ -146,4 +146,14 @@ describe('GameBoardComponent', () => {
     expect(component.mockPlayers[4].hasVoted).toBeTruthy();
     expect(component.mockPlayers[4].voteValue).toBe('21');
   });
+
+  it('debería permitir a un usuario invitado con rol jugador abrir el modal de invitación', () => {
+    component.userRole = 'jugador';
+    component.userViewMode = 'jugador';
+    fixture.detectChanges();
+    expect(component.isModalOpen).toBeFalsy();
+
+    component.openInviteModal();
+    expect(component.isModalOpen).toBeTruthy();
+  });
 });
