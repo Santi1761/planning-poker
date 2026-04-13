@@ -15,8 +15,8 @@ describe('PlayerCardComponent', () => {
   });
 
   it('debería tener la clase voted si hasVoted es true y no está revelada', () => {
-    component.hasVoted = true;
-    component.isRevealed = false;
+    fixture.componentRef.setInput('hasVoted', true);
+    fixture.componentRef.setInput('isRevealed', false);
     fixture.detectChanges();
 
     const cardElement = fixture.nativeElement.querySelector('.card');
@@ -25,9 +25,9 @@ describe('PlayerCardComponent', () => {
   });
 
   it('debería tener la clase revealed y mostrar el valor si está votada y revelada', () => {
-    component.hasVoted = true;
-    component.isRevealed = true;
-    component.value = '21';
+    fixture.componentRef.setInput('hasVoted', true);
+    fixture.componentRef.setInput('isRevealed', true);
+    fixture.componentRef.setInput('value', '21');
     fixture.detectChanges();
 
     const cardElement = fixture.nativeElement.querySelector('.card');

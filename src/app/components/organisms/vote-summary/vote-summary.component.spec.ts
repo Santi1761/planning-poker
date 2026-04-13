@@ -24,11 +24,11 @@ describe('VoteSummaryComponent', () => {
       { name: 'P5', type: 'espectador', hasVoted: true, initials: 'P5', voteValue: '100' }
     ];
 
-    component.players = mockPlayers;
-    component.ngOnChanges();
+    fixture.componentRef.setInput('players', mockPlayers);
+    fixture.detectChanges();
 
-    expect(component.average).toBe('4,3');
-    expect(component.voteCounts.length).toBe(3);
-    expect(component.voteCounts.find(v => v.value === '5')?.count).toBe(2);
+    expect(component.average()).toBe('4,3');
+    expect(component.voteCounts().length).toBe(3);
+    expect(component.voteCounts().find(v => v.value === '5')?.count).toBe(2);
   });
 });

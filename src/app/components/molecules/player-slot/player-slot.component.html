@@ -1,19 +1,21 @@
 <div class="slot-container" (click)="slotClicked.emit()">
 
-  <app-player-card
-    *ngIf="player.type === 'jugador'"
-    [hasVoted]="player.hasVoted"
-    [isRevealed]="isRevealed"
-    [value]="player.voteValue">
-  </app-player-card>
+  @if (player().type === 'jugador') {
+    <app-player-card
+      [hasVoted]="player().hasVoted"
+      [isRevealed]="isRevealed()"
+      [value]="player().voteValue">
+    </app-player-card>
+  }
 
-  <app-spectator-badge
-    *ngIf="player.type === 'espectador'"
-    [initials]="player.initials">
-  </app-spectator-badge>
+  @if (player().type === 'espectador') {
+    <app-spectator-badge [initials]="player().initials"></app-spectator-badge>
+  }
 
   <span class="player-name">
-    {{ player.name }}
-    <span *ngIf="player.isAdmin" class="admin-crown" title="Administrador">(ADMIN)</span>
+    {{ player().name }}
+    @if (player().isAdmin) {
+      <span class="admin-crown" title="Administrador">(ADMIN)</span>
+    }
   </span>
 </div>

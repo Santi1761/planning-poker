@@ -9,11 +9,11 @@
 
     <div class="modal-body">
       <div class="input-wrapper">
-        <input type="text" [value]="inviteLink" readonly class="link-input">
+        <input type="text" [value]="inviteLink()" readonly class="link-input">
       </div>
 
-      <button class="copy-btn" [class.copied]="isCopied" (click)="copyLink()">
-        {{ isCopied ? '¡Copiado!' : 'Copiar link' }}
+      <button class="copy-btn" [class.copied]="isCopied()" (click)="copyLink()">
+        {{ isCopied() ? '¡Copiado!' : 'Copiar link' }}
       </button>
     </div>
 

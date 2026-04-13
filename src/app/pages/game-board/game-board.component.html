@@ -5,67 +5,54 @@
     </div>
 
     <div class="header-center">
-      <h1 class="sprint-title">{{ gameName }}</h1>
+      <h1 class="sprint-title">{{ gameName() }}</h1>
     </div>
 
     <div class="header-right">
       <div class="view-mode-toggle">
-        <span [class.active]="userViewMode === 'espectador'">Espectador</span>
+        <span [class.active]="userViewMode() === 'espectador'">Espectador</span>
         <label class="switch">
-          <input type="checkbox" [checked]="userViewMode === 'jugador'" (change)="toggleViewMode()">
+          <input type="checkbox" [checked]="userViewMode() === 'jugador'" (change)="toggleViewMode()">
           <span class="slider round"></span>
         </label>
-        <span [class.active]="userViewMode === 'jugador'">Jugador</span>
+        <span [class.active]="userViewMode() === 'jugador'">Jugador</span>
       </div>
 
-      <div class="user-badge">{{ userInitials }}</div>
-      <button class="invite-btn" (click)="openInviteModal()">Invitar jugadores</button>
+      <div class="user-badge">{{ userInitials() }}</div>
+
+      @if (userRole() === 'propietario') {
+        <button class="invite-btn" (click)="openInviteModal()">Invitar jugadores</button>
+      }
     </div>
   </header>
 
   <main class="board-main" style="position: relative;">
-
     <app-poker-table
-      [players]="mockPlayers"
-      [isRevealed]="isRevealed"
+      [players]="mockPlayers()"
+      [isRevealed]="isRevealed()"
       (playerClicked)="makeAdmin($event)">
     </app-poker-table>
 
-    <ng-container *ngIf="userRole === 'propietario'">
-
-      <button
-        class="reveal-btn"
-        *ngIf="!isRevealed"
-        (click)="revealCards()">
-        Revelar cartas
-      </button>
-
-      <button
-        class="reveal-btn"
-        *ngIf="isRevealed"
-        (click)="restartGame()">
-        Nueva votación
-      </button>
-
-    </ng-container>
+    @if (userRole() === 'propietario') {
+      @if (!isRevealed()) {
+        <button class="reveal-btn" (click)="revealCards()">Revelar cartas</button>
+      }
+      @if (isRevealed()) {
+        <button class="reveal-btn" (click)="restartGame()">Nueva votación</button>
+      }
+    }
   </main>
 
   <footer class="board-footer">
-    <app-card-deck
-      *ngIf="userViewMode === 'jugador' && !isRevealed"
-      (cardSelected)="onCardSelected($event)">
-    </app-card-deck>
-
-    <app-vote-summary
-      *ngIf="isRevealed"
-      [players]="mockPlayers">
-    </app-vote-summary>
+    @if (userViewMode() === 'jugador' && !isRevealed()) {
+      <app-card-deck (cardSelected)="onCardSelected($event)"></app-card-deck>
+    }
+    @if (isRevealed()) {
+      <app-vote-summary [players]="mockPlayers()"></app-vote-summary>
+    }
   </footer>
 
-  <app-invite-modal
-    *ngIf="isModalOpen"
-    [gameId]="gameId"
-    (close)="closeInviteModal()">
-  </app-invite-modal>
-
+  @if (isModalOpen()) {
+    <app-invite-modal [gameId]="gameId()" (close)="closeInviteModal()"></app-invite-modal>
+  }
 </div>

@@ -56,9 +56,9 @@ describe('GameBoardComponent', () => {
     jest.spyOn(storagePort, 'getGameName').mockReturnValue('Sprint Test');
     jest.spyOn(storagePort, 'getUser').mockReturnValue({ name: 'Luisa', role: 'propietario', viewMode: 'jugador' });
     fixture.detectChanges();
-    expect(component.gameName).toBe('Sprint Test');
-    expect(component.userInitials).toBe('LU');
-    expect(component.mockPlayers.length).toBeGreaterThan(0);
+    expect(component.gameName()).toBe('Sprint Test');
+    expect(component.userInitials()).toBe('LU');
+    expect(component.mockPlayers().length).toBeGreaterThan(0);
     expect(router.navigate).not.toHaveBeenCalled();
   });
 
@@ -68,7 +68,7 @@ describe('GameBoardComponent', () => {
     fixture.detectChanges();
 
     component.onCardSelected('21');
-    expect(component.mockPlayers[4].hasVoted).toBeTruthy();
+    expect(component.mockPlayers()[4].hasVoted).toBeTruthy();
   });
 
   it('debería revelar las cartas y llenar los votos simulados al ejecutar revealCards()', () => {
@@ -78,9 +78,9 @@ describe('GameBoardComponent', () => {
 
     component.revealCards();
 
-    expect(component.isRevealed).toBeTruthy();
-    expect(component.mockPlayers[0].voteValue).toBe('3');
-    expect(component.mockPlayers[3].voteValue).toBe('21');
+    expect(component.isRevealed()).toBeTruthy();
+    expect(component.mockPlayers()[0].voteValue).toBe('3');
+    expect(component.mockPlayers()[3].voteValue).toBe('21');
   });
 
   it('debería reiniciar la partida limpiando los votos al ejecutar restartGame()', () => {
@@ -89,17 +89,16 @@ describe('GameBoardComponent', () => {
     fixture.detectChanges();
 
     component.revealCards();
-    expect(component.isRevealed).toBeTruthy();
-    expect(component.mockPlayers[0].hasVoted).toBeTruthy();
-    expect(component.mockPlayers[0].voteValue).toBe('3');
+    expect(component.isRevealed()).toBeTruthy();
+    expect(component.mockPlayers()[0].hasVoted).toBeTruthy();
+    expect(component.mockPlayers()[0].voteValue).toBe('3');
     component.restartGame();
 
-    expect(component.isRevealed).toBeFalsy();
-
-    expect(component.mockPlayers[0].hasVoted).toBeFalsy();
-    expect(component.mockPlayers[0].voteValue).toBeUndefined();
-    expect(component.mockPlayers[4].hasVoted).toBeFalsy();
-    expect(component.mockPlayers[4].voteValue).toBeUndefined();
+    expect(component.isRevealed()).toBeFalsy();
+    expect(component.mockPlayers()[0].hasVoted).toBeFalsy();
+    expect(component.mockPlayers()[0].voteValue).toBeUndefined();
+    expect(component.mockPlayers()[4].hasVoted).toBeFalsy();
+    expect(component.mockPlayers()[4].voteValue).toBeUndefined();
   });
 
   it('debería abrir y cerrar el modal de invitación', () => {
@@ -108,110 +107,111 @@ describe('GameBoardComponent', () => {
     jest.spyOn(storagePort, 'getGameId').mockReturnValue('ID-123');
     fixture.detectChanges();
 
-    expect(component.isModalOpen).toBeFalsy();
-
+    expect(component.isModalOpen()).toBeFalsy();
     component.openInviteModal();
-    expect(component.isModalOpen).toBeTruthy();
-
+    expect(component.isModalOpen()).toBeTruthy();
     component.closeInviteModal();
-    expect(component.isModalOpen).toBeFalsy();
+    expect(component.isModalOpen()).toBeFalsy();
   });
 
   it('debería construir la mesa simulada para un jugador invitado', () => {
-    component.userInitials = 'JU';
+    component.userInitials.set('JU');
     component.buildMultiplayerTable({ name: 'Juanse', role: 'jugador', viewMode: 'jugador' });
 
-    expect(component.mockPlayers[0].name).toBe('Admin (Host)');
-    expect(component.mockPlayers[4].name).toBe('Juanse');
+    expect(component.mockPlayers()[0].name).toBe('Admin (Host)');
+    expect(component.mockPlayers()[4].name).toBe('Juanse');
   });
 
   it('debería construir la mesa simulada para el propietario creador', () => {
-    component.userInitials = 'LO';
+    component.userInitials.set('LO');
     component.buildMultiplayerTable({ name: 'Lopez', role: 'propietario', viewMode: 'jugador' });
 
-    expect(component.mockPlayers[4].name).toBe('Lopez');
-    expect(component.mockPlayers[7].name).toBe('Invitado');
+    expect(component.mockPlayers()[4].name).toBe('Lopez');
+    expect(component.mockPlayers()[7].name).toBe('Invitado');
   });
 
   it('debería permitir a un usuario invitado elegir una carta y actualizar su estado en la mesa ', () => {
-    component.userRole = 'jugador';
-    component.userViewMode = 'jugador';
-    component.userInitials = 'JU';
+    component.userRole.set('jugador');
+    component.userViewMode.set('jugador');
+    component.userInitials.set('JU');
 
     component.buildMultiplayerTable({ name: 'Juanse', role: 'jugador', viewMode: 'jugador' });
 
-    expect(component.mockPlayers[4].hasVoted).toBeFalsy();
+    expect(component.mockPlayers()[4].hasVoted).toBeFalsy();
 
     component.onCardSelected('21');
 
-    expect(component.mockPlayers[4].hasVoted).toBeTruthy();
-    expect(component.mockPlayers[4].voteValue).toBe('21');
+    expect(component.mockPlayers()[4].hasVoted).toBeTruthy();
+    expect(component.mockPlayers()[4].voteValue).toBe('21');
   });
 
   it('debería permitir a un usuario invitado con rol jugador abrir el modal de invitación', () => {
-    component.userRole = 'jugador';
-    component.userViewMode = 'jugador';
+    component.userRole.set('jugador');
+    component.userViewMode.set('jugador');
     fixture.detectChanges();
-    expect(component.isModalOpen).toBeFalsy();
+    expect(component.isModalOpen()).toBeFalsy();
 
     component.openInviteModal();
-    expect(component.isModalOpen).toBeTruthy();
+    expect(component.isModalOpen()).toBeTruthy();
   });
 
   it('debería cambiar el modo de visualización de jugador a espectador y limpiar el voto ', () => {
-
-    component.userViewMode = 'jugador';
-    component.mockPlayers[4] = { name: 'Juanse', type: 'jugador', hasVoted: true, initials: 'JU', voteValue: '21' };
+    component.userViewMode.set('jugador');
+    component.mockPlayers.update(p => {
+      const updated = [...p];
+      updated[4] = { name: 'Juanse', type: 'jugador', hasVoted: true, initials: 'JU', voteValue: '21' };
+      return updated;
+    });
     const saveUserSpy = jest.spyOn(storagePort, 'saveUser').mockImplementation();
     jest.spyOn(storagePort, 'getUser').mockReturnValue({ name: 'Juanse', role: 'jugador', viewMode: 'jugador' });
 
     component.toggleViewMode();
 
-    expect(component.userViewMode).toBe('espectador');
-    expect(component.mockPlayers[4].type).toBe('espectador');
-    expect(component.mockPlayers[4].hasVoted).toBeFalsy();
-    expect(component.mockPlayers[4].voteValue).toBeUndefined();
+    expect(component.userViewMode()).toBe('espectador');
+    expect(component.mockPlayers()[4].type).toBe('espectador');
+    expect(component.mockPlayers()[4].hasVoted).toBeFalsy();
+    expect(component.mockPlayers()[4].voteValue).toBeUndefined();
     expect(saveUserSpy).toHaveBeenCalledWith('Juanse', 'jugador', 'espectador');
   });
 
   it('debería cambiar el modo de visualización de espectador a jugador', () => {
-
-    component.userViewMode = 'espectador';
-    component.mockPlayers[4] = { name: 'Juanse', type: 'espectador', hasVoted: false, initials: 'JU' };
+    component.userViewMode.set('espectador');
+    component.mockPlayers.update(p => {
+      const updated = [...p];
+      updated[4] = { name: 'Juanse', type: 'espectador', hasVoted: false, initials: 'JU' };
+      return updated;
+    });
 
     const saveUserSpy = jest.spyOn(storagePort, 'saveUser').mockImplementation();
     jest.spyOn(storagePort, 'getUser').mockReturnValue({ name: 'Juanse', role: 'jugador', viewMode: 'espectador' });
 
     component.toggleViewMode();
 
-    expect(component.userViewMode).toBe('jugador');
-    expect(component.mockPlayers[4].type).toBe('jugador');
+    expect(component.userViewMode()).toBe('jugador');
+    expect(component.mockPlayers()[4].type).toBe('jugador');
     expect(saveUserSpy).toHaveBeenCalledWith('Juanse', 'jugador', 'jugador');
   });
 
   it('debería permitir al propietario dar rol de admin a otro jugador', () => {
-
-    component.userRole = 'propietario';
+    component.userRole.set('propietario');
     component.buildMultiplayerTable({ name: 'Lopez', role: 'propietario', viewMode: 'jugador' });
-    expect(component.mockPlayers[0].isAdmin).toBeFalsy();
+    expect(component.mockPlayers()[0].isAdmin).toBeFalsy();
 
     component.makeAdmin(0);
-    expect(component.mockPlayers[0].isAdmin).toBeTruthy();
+    expect(component.mockPlayers()[0].isAdmin).toBeTruthy();
   });
 
   it('no debería permitir al propietario darse admin a sí mismo', () => {
-
-    component.userRole = 'propietario';
+    component.userRole.set('propietario');
     component.buildMultiplayerTable({ name: 'Lopez', role: 'propietario', viewMode: 'jugador' });
     component.makeAdmin(4);
-    expect(component.mockPlayers[4].isAdmin).toBeFalsy();
+    expect(component.mockPlayers()[4].isAdmin).toBeFalsy();
   });
 
   it('no debería permitir a un jugador o espectador dar rol de admin', () => {
-
-    component.userRole = 'jugador';
+    component.userRole.set('jugador');
     component.buildMultiplayerTable({ name: 'Invitado', role: 'jugador', viewMode: 'jugador' });
     component.makeAdmin(1);
-    expect(component.mockPlayers[1].isAdmin).toBeFalsy();
+    expect(component.mockPlayers()[1].isAdmin).toBeFalsy();
   });
 });

@@ -26,16 +26,16 @@ describe('CardDeckComponent', () => {
 
   it('debería cargar las cartas exitosamente al iniciar', () => {
     fixture.detectChanges();
-    expect(component.cards).toEqual(['1', '2', '3']);
-    expect(component.isLoading).toBeFalsy();
+    expect(component.cards()).toEqual(['1', '2', '3']);
+    expect(component.isLoading()).toBeFalsy();
   });
 
   it('debería mostrar lista vacía si el servicio falla', () => {
     cardServiceMock.getAvailableCards.mockReturnValue(throwError(() => new Error('Error de red')));
     fixture.detectChanges();
 
-    expect(component.cards.length).toBe(0);
-    expect(component.isLoading).toBeFalsy();
+    expect(component.cards().length).toBe(0);
+    expect(component.isLoading()).toBeFalsy();
   });
 
   it('debería emitir el evento al seleccionar una carta', () => {
@@ -44,7 +44,7 @@ describe('CardDeckComponent', () => {
 
     component.onSelect('8');
 
-    expect(component.selectedCard).toBe('8');
+    expect(component.selectedCard()).toBe('8');
     expect(component.cardSelected.emit).toHaveBeenCalledWith('8');
   });
 });

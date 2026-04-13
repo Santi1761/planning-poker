@@ -1,5 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, input, output } from '@angular/core';
 import { PlayerCardComponent } from '../../atoms/player-card/player-card.component';
 import { SpectatorBadgeComponent } from '../../atoms/spectator-badge/spectator-badge.component';
 
@@ -15,18 +14,12 @@ export interface PlayerInfo {
 @Component({
   selector: 'app-player-slot',
   standalone: true,
-  imports: [CommonModule, PlayerCardComponent, SpectatorBadgeComponent],
+  imports: [PlayerCardComponent, SpectatorBadgeComponent],
   templateUrl: './player-slot.component.html',
   styleUrl: './player-slot.component.scss'
 })
 export class PlayerSlotComponent {
-  @Input() player: PlayerInfo = {
-    name: '',
-    type: 'jugador',
-    hasVoted: false,
-    initials: ''
-  };
-  @Input() isRevealed: boolean = false;
-
-  @Output() slotClicked = new EventEmitter<void>();
+  player = input<PlayerInfo>({ name: '', type: 'jugador', hasVoted: false, initials: '' });
+  isRevealed = input<boolean>(false);
+  slotClicked = output<void>();
 }

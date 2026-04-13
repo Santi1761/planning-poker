@@ -1,33 +1,27 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, computed, input, output, signal } from '@angular/core';
 
 @Component({
   selector: 'app-invite-modal',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './invite-modal.component.html',
   styleUrl: './invite-modal.component.scss'
 })
-
 export class InviteModalComponent {
-  @Input() gameId: string = '';
-  @Output() close = new EventEmitter<void>();
+  gameId = input<string>('');
+  close = output<void>();
 
-  isCopied: boolean = false;
+  isCopied = signal(false);
 
-  get inviteLink(): string {
+  inviteLink = computed(() => {
     const baseUrl = globalThis.location.origin;
-    return `${baseUrl}/join/${this.gameId}`;
-  }
+    return `${baseUrl}/join/${this.gameId()}`;
+  });
 
   copyLink() {
-    navigator.clipboard.writeText(this.inviteLink).then(() => {
-      this.isCopied = true;
-
-      setTimeout(() => {
-
-        this.isCopied = false;
-      }, 2000);
+    navigator.clipboard.writeText(this.inviteLink()).then(() => {
+      this.isCopied.set(true);
+      setTimeout(() => this.isCopied.set(false), 2000);
     });
   }
 }

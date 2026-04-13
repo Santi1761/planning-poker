@@ -12,7 +12,7 @@ describe('InviteModalComponent', () => {
 
     fixture = TestBed.createComponent(InviteModalComponent);
     component = fixture.componentInstance;
-    component.gameId = 'TEST-ID-123';
+    fixture.componentRef.setInput('gameId', 'TEST-ID-123');
     fixture.detectChanges();
   });
 
@@ -22,7 +22,7 @@ describe('InviteModalComponent', () => {
 
   it('debería generar el link de invitación correctamente', () => {
     const origin = globalThis.location.origin;
-    expect(component.inviteLink).toBe(`${origin}/join/TEST-ID-123`);
+    expect(component.inviteLink()).toBe(`${origin}/join/TEST-ID-123`);
   });
 
   it('debería emitir el evento close al hacer clic en cerrar', () => {
@@ -42,10 +42,10 @@ describe('InviteModalComponent', () => {
     component.copyLink();
     tick();
 
-    expect(navigator.clipboard.writeText).toHaveBeenCalledWith(component.inviteLink);
-    expect(component.isCopied).toBeTruthy();
+    expect(navigator.clipboard.writeText).toHaveBeenCalledWith(component.inviteLink());
+    expect(component.isCopied()).toBeTruthy();
 
     tick(2000);
-    expect(component.isCopied).toBeFalsy();
+    expect(component.isCopied()).toBeFalsy();
   }));
 });

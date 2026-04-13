@@ -6,12 +6,13 @@
   </div>
 
   <div class="players-layer">
-    <app-player-slot
-      *ngFor="let p of players; let i = index"
-      [player]="p"
-      [isRevealed]="isRevealed"
-      (slotClicked)="playerClicked.emit(i)"
-      class="player-wrapper player-pos-{{ i }}">
-    </app-player-slot>
+    @for (p of players(); track p.name; let i = $index) {
+      <app-player-slot
+        [player]="p"
+        [isRevealed]="isRevealed()"
+        (slotClicked)="playerClicked.emit(i)"
+        class="player-wrapper player-pos-{{ i }}">
+      </app-player-slot>
+    }
   </div>
 </div>
